@@ -42,6 +42,7 @@ public abstract class Bil {
         public int getNrDoors(){
             return nrDoors;
         }
+        //hej
 
         /**
          *
