@@ -159,8 +159,12 @@ public abstract class Car implements Movable {
     public void gas(double amount){
         if(amount<=1 && amount >=0)
             incrementSpeed(amount);
-        else
-            throw new RuntimeException("otillåtet värde");
+        else if(amount > 1){
+            incrementSpeed(1);
+        }
+        else {
+            incrementSpeed(0);
+        }
     }
     /**
      * decrement the speed
@@ -169,9 +173,12 @@ public abstract class Car implements Movable {
     public void brake(double amount){
         if(amount<=1 && amount >=0)
             decrementSpeed(amount);
-        else
-            throw new RuntimeException("otillåtet värde");
-
+        else if(amount > 1){
+            decrementSpeed(1);
+        }
+        else {
+            decrementSpeed(0);
+        }
     }
 
 
