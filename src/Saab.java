@@ -1,6 +1,6 @@
 import java.awt.*;
 
-public class Saab extends Bil implements Movable{ //fråga: varför räcker det inte att Bil implementerar Movable?
+public class Saab extends Car { //fråga: varför räcker det inte att Bil implementerar Movable?
     public boolean turboOn;
 
     /**
@@ -14,7 +14,7 @@ public class Saab extends Bil implements Movable{ //fråga: varför räcker det 
     public Saab(int nrDoors, Color color, String modelName, double enginePower){
         super(nrDoors, color, modelName, enginePower);
         this.turboOn =false;
-        this.trimFactor=1;
+
     }
 
     /**
@@ -31,26 +31,18 @@ public class Saab extends Bil implements Movable{ //fråga: varför räcker det 
         turboOn = false;
     }
 
-    /**
-     *
-     * @return state of turbo
-     */
-    public boolean getTurboState(){
-        return turboOn;
-    }
 
     /**
      * Factor which decides how fast the speed should increase or decrease
      * @return enginePower*0.01*turbo
      */
-    @Override //Overridear inte eftersom den är private i Bil, vet ej vad som är "rätt".
+     @Override
     public double speedFactor(){
-        System.out.println("Saab speedFactor");
         double turbo = 1;
         if(turboOn) {
             turbo = 1.3;
         }
-        return (this.getEnginePower() * 0.01 * turbo);
+        return super.speedFactor() * turbo;
     }
 
 
