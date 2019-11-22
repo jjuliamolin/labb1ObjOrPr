@@ -27,6 +27,7 @@ public class SaabTest {
     @Test
     public void gasWhenTurboOnSaab() {
         saab.setTurboOn();
+        saab.startEngine();
         double cur = saab.getCurrentSpeed();
         double expected = cur + (1.25 * 1.3 * 0.2);
         saab.gas(0.2);

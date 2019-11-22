@@ -14,10 +14,15 @@ public class Volvo extends Car {
         super(nrDoors, color, modelName, enginePower);
 
     }
+    
+    /**
+     * Calculates the speedFactor of the volvo.
+     */
     @Override
     public double speedFactor(){
         return super.speedFactor()*trimFactor;
     }
+    
 
 
 }

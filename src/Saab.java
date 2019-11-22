@@ -1,6 +1,6 @@
 import java.awt.*;
 
-public class Saab extends Car { //fråga: varför räcker det inte att Bil implementerar Movable?
+public class Saab extends Car { 
     public boolean turboOn;
 
     /**

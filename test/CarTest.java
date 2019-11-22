@@ -143,6 +143,27 @@ public class CarTest {
         assertEquals(car.getPosition().y,0);
 
     }
+    @Test
+    public void isCloseTest(){
+        //Arrange
+        car.setPosition(0,0);
+        Volvo volvo = new Volvo(2,Color.black,"volvo",150);
+        volvo.setPosition(1,1);
+        boolean expected = true;
+        //Act
+        boolean actual = car.isClose(volvo);
+        //Assert
+        assertEquals(expected,actual);
+    }
 
+    @Test
+    public void setIsLoadedTest(){
+        //Arrange
+        boolean expected = true;
+        //Act
+        car.setIsLoaded(true);
+        //Assert
+        assertEquals(car.getIsLoaded(),expected);
+    }
 
 }
