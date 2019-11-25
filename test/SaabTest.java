@@ -21,8 +21,20 @@ public class SaabTest {
         assertEquals(saab.turboOn, false);
     }
 
+    @Test
+    public void toMuchGasThrowsExceptionSaab() {
+        saab.setTurboOff();
+        saab.stopEngine();
+        saab.startEngine(); //speed=0.1
 
-
+        boolean thrown = false;
+        try {
+            saab.gas(1.5);
+        } catch (RuntimeException e) {
+            thrown = true;
+        }
+        assertTrue(thrown);
+    }
 
     @Test
     public void gasWhenTurboOnSaab() {
