@@ -110,13 +110,11 @@ public abstract class Vehicle implements Movable,Transportable {
      */
     public void move(){
         if (this.currentSpeed ==0){
-            throw new RuntimeException("can't move if engine is off");
-        }
 
-        if(direction == Car.EAST){
+        }
+        else if(direction == Car.EAST){
             this.position.x = (int)(this.position.x +(10*this.currentSpeed));
         }
-
         else if(direction == Car.SOUTH){
             this.position.y = (int)(this.position.y -(10*this.currentSpeed));
         }
