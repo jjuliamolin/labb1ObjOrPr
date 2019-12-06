@@ -3,7 +3,7 @@
  */
 public class Workshop<T extends Car>{
 
-    Storage<T> storage;
+    private Storage<T> storage;
     
 
     public Workshop(int maxNumberOfCars){

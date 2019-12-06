@@ -94,6 +94,7 @@ public abstract class Vehicle implements Movable,Transportable {
      * @param amount
      */
     private void incrementSpeed(double amount){
+        System.out.println();
         currentSpeed = Math.min(getCurrentSpeed() + speedFactor() * amount,enginePower);  //tar det minsta värdet av enginePower och ökning.
     }
 
@@ -110,7 +111,9 @@ public abstract class Vehicle implements Movable,Transportable {
      */
     public void move(){
         if (this.currentSpeed ==0){
-            throw new RuntimeException("can't move if engine is off");
+            return; //testar att inte ha något här
+            //throw new RuntimeException("can't move if engine is off"); //Tar bort denna, annars blir det exception fran carcontroller (TimerListner)
+            //this.startEngine();
         }
 
         if(direction == Car.EAST){
@@ -173,6 +176,10 @@ public abstract class Vehicle implements Movable,Transportable {
      */
     public void turnRight(){
         this.direction = (this.direction +1)%4;
+
+    }
+
+    public void setTurboOn(){
 
     }
 

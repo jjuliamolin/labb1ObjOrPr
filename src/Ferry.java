@@ -48,6 +48,7 @@ public class Ferry extends Vehicle implements Transporter<Car> {
     /**
      * Moves the ferry in the direction it is facing along with all the cars inside.
      */
+    @Override
     public void move(){
         super.move();
         for(Car c : storage.getLoadedCars()){

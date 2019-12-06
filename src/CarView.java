@@ -4,6 +4,7 @@ import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 /**
  * This class represents the full view of the MVC pattern of your car simulator.
@@ -18,14 +19,13 @@ public class CarView extends JFrame{
     private static final int Y = 800;
 
     // The controller member
-    CarController carC;
-
-    DrawPanel drawPanel = new DrawPanel(X, Y-240);
+    private CarController carC;
+    DrawPanel drawPanel;
 
     JPanel controlPanel = new JPanel();
 
     JPanel gasPanel = new JPanel();
-    JSpinner gasSpinner = new JSpinner();
+    JSpinner gasSpinner = new JSpinner(); //välja i ett intervall med pilar
     int gasAmount = 0;
     JLabel gasLabel = new JLabel("Amount of gas");
 
@@ -48,36 +48,37 @@ public class CarView extends JFrame{
     // Sets everything in place and fits everything
     // TODO: Take a good look and make sure you understand how these methods and components work
     private void initComponents(String title) {
-
         this.setTitle(title);
         this.setPreferredSize(new Dimension(X,Y));
         this.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
 
+        this.drawPanel = new DrawPanel(X, Y-240, carC.cars);
         this.add(drawPanel);
 
 
 
-        SpinnerModel spinnerModel =
+        SpinnerModel spinnerModel =     //innehåll till (componenten) där man kan välja ett värde i ett intervall med pilar upp/ned
                 new SpinnerNumberModel(0, //initial value
                         0, //min
                         100, //max
                         1);//step
-        gasSpinner = new JSpinner(spinnerModel);
+        gasSpinner = new JSpinner(spinnerModel); //skapar komponent med dess model som input
         gasSpinner.addChangeListener(new ChangeListener() {
             public void stateChanged(ChangeEvent e) {
                 gasAmount = (int) ((JSpinner)e.getSource()).getValue();
             }
         });
 
-        gasPanel.setLayout(new BorderLayout());
+
+        gasPanel.setLayout(new BorderLayout());      //gasPanel = JPanel
         gasPanel.add(gasLabel, BorderLayout.PAGE_START);
         gasPanel.add(gasSpinner, BorderLayout.PAGE_END);
 
         this.add(gasPanel);
 
-        controlPanel.setLayout(new GridLayout(2,4));
+        controlPanel.setLayout(new GridLayout(2,4)); //controlPanel = en JPanel
 
-        controlPanel.add(gasButton, 0);
+        controlPanel.add(gasButton, 0);         //lägger till komponenter i J
         controlPanel.add(turboOnButton, 1);
         controlPanel.add(liftBedButton, 2);
         controlPanel.add(brakeButton, 3);
@@ -107,6 +108,36 @@ public class CarView extends JFrame{
                 carC.gas(gasAmount);
             }
         });
+//--------------TESTAR ACTIONLISTERNS NEDAN----------------//
+
+        startButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                carC.startEngine();
+            }
+        });
+
+        brakeButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                carC.brake(gasAmount);
+            }
+        });
+
+        stopButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                carC.stopEngine();
+            }
+        });
+
+        turboOnButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                carC.turboOn();
+            }
+        });
+        //--------------------------------------------------//
 
         // Make the frame pack all it's components by respecting the sizes if possible.
         this.pack();

@@ -1,7 +1,7 @@
 import java.awt.*;
 
 public class Saab extends Car { 
-    public boolean turboOn;
+    private boolean turboOn;
 
     /**
      * Constructs a Saab which extends Car.
@@ -22,6 +22,7 @@ public class Saab extends Car {
      */
     public void setTurboOn(){
         turboOn = true;
+        System.out.println("turbo ON " + turboOn);
     }
 
     /**
@@ -38,6 +39,7 @@ public class Saab extends Car {
      */
      @Override
     public double speedFactor(){
+         System.out.println("override: speedfactor Saab");
         double turbo = 1;
         if(turboOn) {
             turbo = 1.3;
