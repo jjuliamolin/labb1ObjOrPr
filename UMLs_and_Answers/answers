@@ -1,0 +1,73 @@
+* Cohesion, Coupling DIP:
+Just nu är det ganska high coupling och low coheshion, tvärtemot vad som bör eftersträvas. Tex beror både View och
+controller på Cars. För att skapa en till bil måste man skriva kod på flera ställen. Dependency Inversion princple
+bryt mot till exempel då CarController beror på Car, bättre att ha tex två listor med (interfaces) Transportables
+och Transporters. Och dessa bör helst ligga i modellen, eftersom CarController ändå måste bero på Model.
+
+• Vilka beroenden är nödvändiga?
+Det behövs ett beroende mellan controller och view, liksom controller och model. Modellen behöver också kunna nå
+view på något sätt, vi föreslår Observer Pattern: att Model has-A CarListener som View implementerar.
+
+
+• Vilka klasser är beroende av varandra som inte bör vara det?
+Att CarView har en carController, känns fel. Tvärtom är däremot rimligt.
+Controller är nu direkt beroende av Saab,Volvo och Scania vilket kan lösas genom en ha en Factory istället.
+
+• Finns det starkare beroenden än nödvändigt?
+Om vi tar bort de som känns onödiga, så ser vi inga som är "för starka" kvar.
+
+• Kan ni identifiera några brott mot övriga designprinciper vi pratat om i kursen?
+OCP: closed for extension. Om man vill lägga till en ny bil måste detta kodas på flera ställen (controller + view).
+Måste ha dubbla metoder av alla som går att interagera med, en i model och en i controller, lätt att bli fel om man
+vill bygga ut programmet.
+
+-----
+
+• Analysera era klasser med avseende på Separation of Concern (SoC) och Single Responsibility Principle (SRP).
+
+Vi tycker att vi delat upp våra metoder bra tidigare. Tex isClose(), som vi plockade ut från load(). Den kollar att en
+transportable är tillräckligt nära en transporter för att lastas.
+
+Men i CarView, görs allt i samma metod (initComponent()), man skulle kunna dela upp i mindre beskrivande metoder.
+(ex setButtons), samma med alla actionsListeners.
+
+• Vilka ansvarsområden har era klasser?
+	CarController: Skapa instanser av bilar. Skapa en View och uppdatera DrawPanel(View) kontinuerligt. Styra model
+	(metoderna), de anropas från view->controller->Car.
+
+	CarView: bygga upp grafiska interfacet. Skapa en drawPanel.  Lyssna på event.
+
+	DrawPanel: målar upp det "dynamiska" i gränssnittet, bilarna som rör sig.
+
+	Vehicle: skapar "grunden" för dens subklasser. Ger de attribut och metoder som alla dess subklasser behöver. Har tex koll på riktningar och positioner - dessa finns ju för alla vehicles, oavsett bil eller färja.
+
+	Storage: kan lagra typer som ärver Bil.
+
+	CarTransporter: lagra bilar i ett storage, som kan transporteras.
+
+
+
+• Vilka anledningar har de att förändras?
+Tex CarTransporter har två ansvarsområden (förflytta sig och lagra), men vi har redan refaktoriserat denna till Storage.
+
+CarController och View, gör det de ska, men det skulle kunna se snyggare ut. Ta bort hårdkodning, samt den stora metoden
+ (initComponents).
+
+• På vilka klasser skulle ni behöva tillämpa dekomposition för att bättre följa SoC och SRP?
+Dela upp CarView i metoder, som nämnts tidigare, tex createButton() och liknande för ActionsListeners.
+
+Vi har redan delat upp våra egna metoder så gott vi kunde, som också nämnts tidigare.
+
+---
+
+REFAKTORISERINGSPLAN
+Varje sekvens nedan kan ske parallellt, de som följer varandra (ex steg1-3 i första stycket) bör ske i tur och ordning.
+
+1. Ny klass CarFactory. med metoder som kan skapa instanser Volvo, Saab, Scania
+2. Skapa en CarModel klass, för att öka abstraktionen och tydligare få en modell. denna ska innehålla en lista av de fordon som finns "aktiva".
+3. addCar(String s) metod i CarModel, denna ropar på factory.
+
+1. skapa interface CarListener med metod ActOnUpdate()
+2. skapa metod ActOnUpdate i DrawPanel
+
+1. Lägg till ActionListeners i CarController och ta bort de som finns i View.
