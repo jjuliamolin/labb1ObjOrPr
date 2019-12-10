@@ -8,15 +8,10 @@ import javax.swing.*;
 
 // This panel represent the animated part of the view with the car images.
 
-public class DrawPanel extends JPanel{
-
-    // Just a single image, TODO: Generalize
+public class DrawPanel extends JPanel implements CarListener{
     private ArrayList<BufferedImage> imageList;
-
-    // To keep track of a single cars position
     private ArrayList<Point> pointList;
 
-    // TODO: Make this general for all cars
     void moveit(int index,int x, int y){
         pointList.get(index).x = x;
         pointList.get(index).y = y;
@@ -29,21 +24,11 @@ public class DrawPanel extends JPanel{
         this.setDoubleBuffered(true);
         this.setPreferredSize(new Dimension(x, y));
         this.setBackground(Color.green);
-        // Print an error message in case file is not found with a try/catch block
-        try {
-            // You can remove the "pics" part if running outside of IntelliJ and
-            // everything is in the same main folder.
-            // volvoImage = ImageIO.read(new File("Volvo240.jpg"));
 
-            // Remember to right click src New -> Package -> name: pics -> MOVE *.jpg to pics.
-            // if you are starting in IntelliJ.
-            imageList.add(ImageIO.read(DrawPanel.class.getResourceAsStream("pics/Volvo240.jpg")));
-            imageList.add(ImageIO.read(DrawPanel.class.getResourceAsStream("pics/Saab95.jpg")));
-            imageList.add(ImageIO.read(DrawPanel.class.getResourceAsStream("pics/Scania.jpg")));
-        } catch (IOException ex)
-        {
-            ex.printStackTrace();
-        }
+        addVisualCar("volvo");
+        addVisualCar("saab");
+        addVisualCar("scania");
+
         for(int i = 0; i < imageList.size(); i++){
             pointList.add(new Point());
         }
@@ -59,4 +44,35 @@ public class DrawPanel extends JPanel{
             g.drawImage(imageList.get(i),pointList.get(i).x,pointList.get(i).y + i*100,null);
         }
     }
+
+
+    //TODO
+    @Override
+    public void actOnUpdate() {
+        //for alla bilar, repaint
+    }
+
+    //TODO ska denna metoden vara här?
+    public void addVisualCar(String s){ // Print an error message in case file is not found with a try/catch block
+        String pic = "";
+    String volvo = "pics/Volvo240.jpg";
+    String saab = "pics/Saab95.jpg";
+    String scania =  "pics/Scania.jpg";
+
+    if(s.equals("volvo")) pic =volvo;
+    else if(s.equals("saab")) pic =saab;
+    else if(s.equals("scania")) pic =scania;
+
+        try {
+            imageList.add(ImageIO.read(DrawPanel.class.getResourceAsStream(pic)));
+
+        } catch (IOException ex)
+        {
+            ex.printStackTrace();
+        }
+
+    }
+
+
+
 }
