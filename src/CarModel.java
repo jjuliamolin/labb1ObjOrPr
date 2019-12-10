@@ -7,9 +7,20 @@ public class CarModel {
     private CarListener listener;
 
 
-    public void addCar(){
+    public CarModel(){
+        listOfTransportables = new ArrayList<>();
+        listOfTransporters = new ArrayList<>();
+        factory = new CarFactory();
+    }
+
+
+    public void addCar(){ //TODO: generalisera. gör bara saab nu.
         listOfTransportables.add(factory.createSaab());
         listener.actOnUpdate();
+    }
+
+    public void addCarListener(CarListener carListener){
+        this.listener=carListener;
     }
 
 

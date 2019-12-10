@@ -50,6 +50,7 @@ public class DrawPanel extends JPanel implements CarListener{
     @Override
     public void actOnUpdate() {
         //for alla bilar, repaint
+        System.out.println("act on update");
     }
 
     //TODO ska denna metoden vara här?
