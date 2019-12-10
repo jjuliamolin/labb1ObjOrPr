@@ -22,7 +22,7 @@ public class CarController {
     //methods:
 
     public static void main(String[] args) {
-        CarController cc = new CarController();         // Instance of this class
+        CarController cc = new CarController();  //       // Instance of this class
         cc.cars.add(new Saab(4, Color.BLACK, "Saab95",120)); //lägger till i listan
         cc.cars.add(new Volvo(4, Color.RED, "Volvo240",120)); //lägger till i listan
         cc.cars.add(new Scania(4, Color.BLACK, 520)); //lägger till i listan
