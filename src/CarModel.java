@@ -14,13 +14,32 @@ public class CarModel {
     }
 
 
-    public void addCar(){ //TODO: generalisera. gör bara saab nu.
-        listOfTransportables.add(factory.createSaab());
+    public void addCar(String name){ //TODO: generalisera. gör bara saab nu.
+        if(name.equals("volvo")){
+            listOfTransportables.add(factory.createVolvo());
+        }
+        else if(name.equals("saab")){
+            listOfTransportables.add(factory.createSaab());
+        }
+        else if(name.equals("scania")){
+            listOfTransportables.add(factory.createScania());
+        }
+        else{
+            System.out.println("Not a valid name");
+        }
         listener.actOnUpdate();
     }
 
+    public ArrayList<Transportable> getTransportableList(){
+        return listOfTransportables;
+    }
+
+    public void removeLastCar(){
+        listOfTransportables.remove(listOfTransportables.size() - 1);
+    }
+
     public void addCarListener(CarListener carListener){
-        this.listener=carListener;
+        this.listener = carListener;
     }
 
 

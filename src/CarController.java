@@ -30,19 +30,16 @@ public class CarController {
     public static void main(String[] args) {
         // Instance of this class
         CarController cc = new CarController();
-
-        cc.cars.add(new Volvo(2, Color.black, "Volvo", 200));
-        cc.cars.add(new Saab(2, Color.red, "Saab", 200));
-        cc.cars.add(new Scania(2, Color.cyan, 100));
         cc.addActionListeners();
+        cc.model.addCarListener(cc.frame.drawPanel);
+
+        cc.addCar("volvo");
+
 
         // Start the timer
         cc.timer.start();
 
-        cc.model.addCarListener(cc.frame.drawPanel);
 
-        //TESTAR
-        cc.model.addCar();
 
 
     }
@@ -68,6 +65,23 @@ public class CarController {
                 frame.drawPanel.repaint();
             }
         }
+    }
+
+    public void addCar(String name){
+        model.addCar(name);
+        updateTransportableList();
+        frame.drawPanel.addVisualCar(name);
+
+    }
+
+    public void removeCar(){
+        model.removeLastCar();
+        updateTransportableList();
+        frame.drawPanel.removeLastVisualCar();
+    }
+
+    public void updateTransportableList(){
+        frame.drawPanel.setTransportableList(model.getTransportableList());
     }
 
     public void addActionListeners() {
@@ -112,6 +126,7 @@ public class CarController {
             @Override
             public void actionPerformed(ActionEvent e) {
                 for (Car car : cars) {
+                    // Create interface "turbochargeable" for this and similar for the scania
                     if (car instanceof Saab) { //TODO vill ej bero på Saab, hur löser vi denna?
                         ((Saab) car).setTurboOn();
                     }

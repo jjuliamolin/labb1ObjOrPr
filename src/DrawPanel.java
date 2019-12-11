@@ -12,6 +12,8 @@ public class DrawPanel extends JPanel implements CarListener{
     private ArrayList<BufferedImage> imageList;
     private ArrayList<Point> pointList;
 
+    private ArrayList<Transportable> transportableList;
+
     void moveit(int index,int x, int y){
         pointList.get(index).x = x;
         pointList.get(index).y = y;
@@ -21,13 +23,13 @@ public class DrawPanel extends JPanel implements CarListener{
     public DrawPanel(int x, int y) {
         pointList = new ArrayList<>();
         imageList = new ArrayList<>();
+        transportableList = new ArrayList<>();
+
         this.setDoubleBuffered(true);
         this.setPreferredSize(new Dimension(x, y));
         this.setBackground(Color.green);
 
-        addVisualCar("volvo");
-        addVisualCar("saab");
-        addVisualCar("scania");
+
 
         for(int i = 0; i < imageList.size(); i++){
             pointList.add(new Point());
@@ -35,6 +37,8 @@ public class DrawPanel extends JPanel implements CarListener{
 
     }
 
+
+/*
     // This method is called each time the panel updates/refreshes/repaints itself
     // TODO: Change to suit your needs.
     @Override
@@ -44,7 +48,17 @@ public class DrawPanel extends JPanel implements CarListener{
             g.drawImage(imageList.get(i),pointList.get(i).x,pointList.get(i).y + i*100,null);
         }
     }
+    */
 
+
+
+    @Override
+    protected void paintComponent(Graphics g){
+        super.paintComponent(g); // TODO make sure imagelist and transportablelist are the same size
+        for(int i = 0; i < imageList.size(); i++){
+            g.drawImage(imageList.get(i), transportableList.get(i).getPosition().x,transportableList.get(i).getPosition().y + i*100,null);
+        }
+    }
 
     //TODO
     @Override
@@ -56,13 +70,13 @@ public class DrawPanel extends JPanel implements CarListener{
     //TODO ska denna metoden vara här?
     public void addVisualCar(String s){ // Print an error message in case file is not found with a try/catch block
         String pic = "";
-    String volvo = "pics/Volvo240.jpg";
-    String saab = "pics/Saab95.jpg";
-    String scania =  "pics/Scania.jpg";
+        String volvo = "pics/Volvo240.jpg";
+        String saab = "pics/Saab95.jpg";
+        String scania =  "pics/Scania.jpg";
 
-    if(s.equals("volvo")) pic =volvo;
-    else if(s.equals("saab")) pic =saab;
-    else if(s.equals("scania")) pic =scania;
+    if(s.equals("volvo")) pic = volvo;
+    else if(s.equals("saab")) pic = saab;
+    else if(s.equals("scania")) pic = scania;
 
         try {
             imageList.add(ImageIO.read(DrawPanel.class.getResourceAsStream(pic)));
@@ -72,6 +86,14 @@ public class DrawPanel extends JPanel implements CarListener{
             ex.printStackTrace();
         }
 
+    }
+
+    public void removeLastVisualCar(){
+        imageList.remove(imageList.size() - 1);
+    }
+
+    public void setTransportableList(ArrayList<Transportable> tList){
+        transportableList = tList;
     }
 
 
