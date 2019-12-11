@@ -73,6 +73,7 @@ public abstract class Vehicle implements Movable,Transportable {
     }
 
 
+
     /**
      *
      * @return riktning

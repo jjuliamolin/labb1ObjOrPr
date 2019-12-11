@@ -1,0 +1,18 @@
+Avvikelser från MVC idealet: för mycket kopplingar. tex cirkulära beroenden (ex controller has-A View som has-A Controller)
+
+Model (smart):
+
+View (dumb): ActionsListeners låg förut i Viewn, som anropade Controller, som i sin tur anropade Model. För att undvika
+             buggar behövde Viewn känna till info om model (alltså den kunde inte vara så dum). Nu ligger bara grafiska komponenter kvar.
+             ActionListeners läggs till i cc.
+
+
+
+Controller (thin): var tidigare beroende av Cars subtyper (saab, scania och volvo).
+
+Vilka brister är åtgärdade:
+    - tagit bort att View has-A Controller.
+    - beror på abstraktioner istället för implementationer (tex Transportable ist för Car, och Turboable ist för instance of Saab)
+    - flyttat Actionlisteners för att slippa dubbelkodning för att nå modellen efter användarens input.
+
+

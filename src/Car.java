@@ -1,7 +1,7 @@
 import java.awt.*;
 import java.lang.RuntimeException;
 
-public abstract class Car extends Vehicle {
+public abstract class Car extends Vehicle implements ICar {
 
     private int nrDoors; // Number of doors on the car
     private Color color; // Color of the car
@@ -19,6 +19,10 @@ public abstract class Car extends Vehicle {
         this.nrDoors = nrDoors;
         this.color = color;
         this.modelName = modelName;
+    }
+
+    public String getModelName(){
+        return modelName;
     }
 
     /**

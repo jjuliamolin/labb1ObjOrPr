@@ -15,5 +15,6 @@ public interface Transportable {
     public void brake(double amount);
     public void startEngine();
     public void stopEngine();
+    public double getCurrentSpeed();
 
 }

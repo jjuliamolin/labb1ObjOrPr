@@ -51,11 +51,12 @@ public class CarController {
                 //frame.drawPanel.moveit(cars.indexOf(car), x, y);
                 // repaint() calls the paintComponent method of the panel
                 frame.drawPanel.repaint();
+                frame.speedView.repaint();
             }
         }
     }
 
-    public void addCar(String name){
+    private void addCar(String name){
         model.addCar(name);
         updateTransportableList();
         frame.drawPanel.addVisualCar(name);
@@ -67,11 +68,12 @@ public class CarController {
         frame.drawPanel.removeLastVisualCar();
     }
 
-    public void updateTransportableList(){
+    private void updateTransportableList(){
         frame.drawPanel.setTransportableList(model.getTransportableList());
+        frame.speedView.setListOfCars(model.getTransportableList());
     }
 
-    public void addActionListeners() {
+    private void addActionListeners() {
         frame.gasButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
