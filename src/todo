@@ -1,0 +1,4 @@
+1. Hur ska view få veta att en ny bil lagts till, uatn att ha en lista med bilar?
+
+    idé: DrawPanel har en lista med bilder, och en med punkter.  när actOnUpdate() körs, lägger den till bilder och
+    flyttar dem till rätt punkter.

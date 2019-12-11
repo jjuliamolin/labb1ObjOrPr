@@ -9,4 +9,11 @@ public interface Transportable {
     public boolean getIsLoaded();
     public void setIsLoaded(boolean status);
     public Point getPosition();
+    public void turnLeft();
+    public void move();
+    public void gas(double amount);
+    public void brake(double amount);
+    public void startEngine();
+    public void stopEngine();
+
 }
