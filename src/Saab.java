@@ -1,6 +1,6 @@
 import java.awt.*;
 
-public class Saab extends Car { 
+public class Saab extends Car implements TurboChargeable {
     public boolean turboOn;
 
     /**
@@ -40,7 +40,7 @@ public class Saab extends Car {
     public double speedFactor(){
         double turbo = 1;
         if(turboOn) {
-            turbo = 1.3;
+            turbo = 1.5;
         }
         return super.speedFactor() * turbo;
     }

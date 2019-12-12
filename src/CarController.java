@@ -2,7 +2,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Random;
 
 /*
 * This class represents the Controller part in the MVC pattern.
@@ -23,7 +25,6 @@ public class CarController {
         model.addCarListener(this.frame.drawPanel);
 
         addCar("volvo");
-        addCar("saab");
         addCar("saab");
         addCar("scania");
 
@@ -57,15 +58,19 @@ public class CarController {
     }
 
     private void addCar(String name){
-        model.addCar(name);
-        updateTransportableList();
-        frame.drawPanel.addVisualCar(name);
+        if(model.getTransportableList().size() < 10) {
+            model.addCar(name);
+            updateTransportableList();
+            frame.drawPanel.addVisualCar(name);
+        }
     }
 
     public void removeCar(){
-        model.removeLastCar();
-        updateTransportableList();
-        frame.drawPanel.removeLastVisualCar();
+        if(model.getTransportableList().size() > 0) {
+            model.removeLastCar();
+            updateTransportableList();
+            frame.drawPanel.removeLastVisualCar();
+        }
     }
 
     private void updateTransportableList(){
@@ -115,9 +120,8 @@ public class CarController {
             @Override
             public void actionPerformed(ActionEvent e) {
                 for (Transportable car : model.getTransportableList()) {
-                    // Create interface "turbochargeable" for this and similar for the scania
-                    if (car instanceof Saab) { //TODO vill ej bero på Saab, hur löser vi denna?
-                        ((Saab) car).setTurboOn();
+                    if (car instanceof TurboChargeable) {
+                        ((TurboChargeable) car).setTurboOn();
                     }
                 }
             }
@@ -127,8 +131,8 @@ public class CarController {
             @Override
             public void actionPerformed(ActionEvent e) {
                 for (Transportable car : model.getTransportableList()) {
-                    if (car instanceof Saab) { //TODO vill ej bero på Saab, hur löser vi denna?
-                        ((Saab) car).setTurboOff();
+                    if (car instanceof TurboChargeable) {
+                        ((TurboChargeable) car).setTurboOff();
                     }
                 }
             }
@@ -138,8 +142,8 @@ public class CarController {
             @Override
             public void actionPerformed(ActionEvent e) {
                 for (Transportable car : model.getTransportableList()) {
-                    if (car instanceof Scania) { //TODO vill ej bero på Scania, hur löser vi denna?
-                        ((Scania) car).raise();
+                    if (car instanceof Truck) { //TODO vill ej bero på Scania, hur löser vi denna?
+                        ((Truck) car).raise();
                     }
                 }
             }
@@ -149,13 +153,31 @@ public class CarController {
             @Override
             public void actionPerformed(ActionEvent e) {
                 for (Transportable car : model.getTransportableList()) {
-                    if (car instanceof Scania) {  //TODO vill ej bero på Scania, hur löser vi denna?
-                        ((Scania) car).lower();
+                    if (car instanceof Truck) {  //TODO vill ej bero på Scania, hur löser vi denna?
+                        ((Truck) car).lower();
                     }
                 }
             }
         });
+
+        frame.addCarButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String[] cars = {"volvo", "saab", "scania"};
+                Random random = new Random();
+                int index = random.nextInt(3);
+                addCar(cars[index]);
+            }
+        });
+
+        frame.removeCarButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                removeCar();
+            }
+        });
     }
+
 
 
 

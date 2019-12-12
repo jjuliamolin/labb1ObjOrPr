@@ -14,7 +14,7 @@ public class CarFactory {
     }
 
     public Transportable createScania(){
-        return new Volvo(4, Color.cyan,"Scania", 100);
+        return new Scania(4,Color.orange,100);
     }
 
 

@@ -4,7 +4,7 @@ import java.awt.*;
  * Makes a Scania which extends Car
  * The bed starts with no tilt, it is parallel to the ground.
  */
-public class Scania extends Car{
+public class Scania extends Car implements Truck{
     private int degreeOfBed;
 
     public Scania(int nrDoors, Color color, double EnginePower){
