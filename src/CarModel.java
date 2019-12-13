@@ -14,7 +14,7 @@ public class CarModel {
     }
 
 
-    public void addCar(String name){ //TODO: generalisera. gör bara saab nu.
+    public void addCar(String name){
         if(name.equals("volvo")){
             listOfTransportables.add(factory.createVolvo());
         }

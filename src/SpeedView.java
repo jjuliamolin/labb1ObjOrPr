@@ -9,7 +9,7 @@ public class SpeedView extends JPanel {
     public SpeedView(int x, int y) {
         this.setDoubleBuffered(true);
         this.setPreferredSize(new Dimension(x, y));
-        this.setBackground(Color.blue);
+        this.setBackground(Color.yellow);
 
        cars = new ArrayList<Transportable>();
     }

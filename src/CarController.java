@@ -38,6 +38,10 @@ public class CarController {
      * */
     private class TimerListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
+            if(model.getTransportableList().size() == 0){
+                frame.drawPanel.repaint();
+                frame.speedView.repaint();
+            }
             for (Transportable car : model.getTransportableList()) {
                 if (car.getPosition().getX() > 700) {
                     car.turnLeft();
@@ -47,10 +51,7 @@ public class CarController {
                     car.turnLeft();
                 }
                 car.move();
-                int x = (int) Math.round(car.getPosition().getX());
-                int y = (int) Math.round(car.getPosition().getY());
-                //frame.drawPanel.moveit(cars.indexOf(car), x, y);
-                // repaint() calls the paintComponent method of the panel
+
                 frame.drawPanel.repaint();
                 frame.speedView.repaint();
             }
@@ -142,7 +143,7 @@ public class CarController {
             @Override
             public void actionPerformed(ActionEvent e) {
                 for (Transportable car : model.getTransportableList()) {
-                    if (car instanceof Truck) { //TODO vill ej bero på Scania, hur löser vi denna?
+                    if (car instanceof Truck) {
                         ((Truck) car).raise();
                     }
                 }
@@ -153,7 +154,7 @@ public class CarController {
             @Override
             public void actionPerformed(ActionEvent e) {
                 for (Transportable car : model.getTransportableList()) {
-                    if (car instanceof Truck) {  //TODO vill ej bero på Scania, hur löser vi denna?
+                    if (car instanceof Truck) {
                         ((Truck) car).lower();
                     }
                 }
